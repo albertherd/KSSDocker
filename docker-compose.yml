@@ -9,7 +9,9 @@ services:
       - "6379:6379"
 
   shoppingcart:
-    build: ./KssDocker.ShoppingCart
+    build:
+      context: .
+      dockerfile: KssDocker.ShoppingCart/Dockerfile
     networks: 
       - poorman
     ports:
@@ -20,14 +22,18 @@ services:
       - RedisConnectionString=redis
 
   products:
-    build: ./KssDocker.Products
+    build:
+      context: .
+      dockerfile: KssDocker.Products/Dockerfile
     networks: 
       - poorman
     ports:
       - "80:80"
       
   web:
-    build: ./KssDocker.Web
+    build:
+      context: .
+      dockerfile: KssDocker.Web/Dockerfile
     networks: 
       - poorman
     ports:
