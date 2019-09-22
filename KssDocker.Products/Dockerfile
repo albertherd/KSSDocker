@@ -18,6 +18,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "KssDocker.Products.dll"]
-
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
-WORKDIR /app
