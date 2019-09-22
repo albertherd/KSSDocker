@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  redis:
+    image: redis
+    networks: 
+      - poorman
+    ports:
+      - "6379:6379"
+
+  shoppingcart:
+    build: ./KssDocker.ShoppingCart
+    networks: 
+      - poorman
+    ports:
+      - "80:80"
+    depends_on:
+      - redis
+
+  products:
+    build: ./KssDocker.Products
+    networks: 
+      - poorman
+    ports:
+      - "80:80"
+      
+  web:
+    build: ./KssDocker.Web
+    networks: 
+      - poorman
+    ports:
+      - "80:80"
+    depends_on:
+      - shoppingcart
+      - products
+      
+networks:
+  poorman:

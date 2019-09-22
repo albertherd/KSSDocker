@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Poor Man's shop</h1>
+    <h2> Click to add to cart</h2>
+    <br />
+
+    <h3>Cart ID - @Model.ShoppingCart.Id</h3>
+
+    @foreach (var product in Model.Products)
+    {
+        <form method="post">
+            <input type="hidden" name="product" value="@product.Id" />
+            <button type="submit" value="@product.Id">
+                <h3>@product.Id) @product.Description - @product.Price</h3>
+            </button>
+        </form>
+    }
+
+    <h3>Items in your cart</h3>
+    <ul>
+        @foreach (var product in @Model.ShoppingCart.Products)
+        {
+            <li>
+                @product.Description - @product.Price
+            </li>
+        }
+    </ul>
+</div>
