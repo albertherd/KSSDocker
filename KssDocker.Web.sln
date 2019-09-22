@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KssDocker.Web", "KssDocker.Web\KssDocker.Web.csproj", "{AF7DF5AE-545D-4C14-90EF-051C52093B26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KssDocker.Web", "KssDocker.Web\KssDocker.Web.csproj", "{AF7DF5AE-545D-4C14-90EF-051C52093B26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KssDocker.Products", "KssDocker.Products\KssDocker.Products.csproj", "{CA2CF308-3FEE-46B4-BD5C-930CE0EAB27E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KssDocker.Products", "KssDocker.Products\KssDocker.Products.csproj", "{CA2CF308-3FEE-46B4-BD5C-930CE0EAB27E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KssDocker.ShoppingCart", "KssDocker.ShoppingCart\KssDocker.ShoppingCart.csproj", "{F2E498D8-E39C-46A0-89DA-FF6380942E6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KssDocker.ShoppingCart", "KssDocker.ShoppingCart\KssDocker.ShoppingCart.csproj", "{F2E498D8-E39C-46A0-89DA-FF6380942E6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KssDocker.Models", "KssDocker.Models\KssDocker.Models.csproj", "{861F0AF4-A25A-43E6-A8F1-64BCF8455185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KssDocker.Models", "KssDocker.Models\KssDocker.Models.csproj", "{861F0AF4-A25A-43E6-A8F1-64BCF8455185}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
