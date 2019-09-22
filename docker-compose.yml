@@ -16,6 +16,8 @@ services:
       - "80:80"
     depends_on:
       - redis
+    environment:
+      - RedisConnectionString=redis
 
   products:
     build: ./KssDocker.Products
@@ -33,6 +35,9 @@ services:
     depends_on:
       - shoppingcart
       - products
+    environment:
+      - ShoppingCartServiceEndpoint=http://shoppingcart/
+      - ProductsServiceEndpoint=http://products/
       
 networks:
   poorman:
