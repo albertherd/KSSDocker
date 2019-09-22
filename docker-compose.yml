@@ -19,7 +19,7 @@ services:
     depends_on:
       - redis
     environment:
-      - RedisConnectionString=redis
+      - RedisConnectionString=kssdocker_redis_1
 
   products:
     build:
@@ -42,8 +42,8 @@ services:
       - shoppingcart
       - products
     environment:
-      - ShoppingCartServiceEndpoint=http://shoppingcart:69/
-      - ProductsServiceEndpoint=http://products:420/
+      - ShoppingCartServiceEndpoint=http://kssdocker_shoppingcart_1/api/shoppingcart/
+      - ProductsServiceEndpoint=http://kssdocker_products_1/api/products/
       
 networks:
   poorman:
