@@ -15,7 +15,7 @@ services:
     networks: 
       - poorman
     ports:
-      - "80:80"
+      - "69:80"
     depends_on:
       - redis
     environment:
@@ -28,7 +28,7 @@ services:
     networks: 
       - poorman
     ports:
-      - "80:80"
+      - "420:80"
       
   web:
     build:
@@ -42,8 +42,8 @@ services:
       - shoppingcart
       - products
     environment:
-      - ShoppingCartServiceEndpoint=http://shoppingcart/
-      - ProductsServiceEndpoint=http://products/
+      - ShoppingCartServiceEndpoint=http://shoppingcart:69/
+      - ProductsServiceEndpoint=http://products:420/
       
 networks:
   poorman:
