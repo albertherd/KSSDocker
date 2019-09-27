@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,8 @@ namespace KssDocker.Products
 {
     public class Startup
     {
+        private const string SqlServerConnectionStringEnvVar = "SqlServerConnectionString";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +28,7 @@ namespace KssDocker.Products
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<ProductsContext>(SetUpDbContextOptionsBuilder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +40,29 @@ namespace KssDocker.Products
             }
 
             app.UseMvc();
+            SetUpDatabase(app.ApplicationServices);
+        }
+
+        private void SetUpDatabase(IServiceProvider serviceProvider)
+        {
+            using (var serviceScope = serviceProvider.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ProductsContext>();
+                context.Database.Migrate();
+            }
+        }
+
+        private void SetUpDbContextOptionsBuilder(DbContextOptionsBuilder options)
+        {
+            string sqlServerConnectionString = Environment.GetEnvironmentVariable(SqlServerConnectionStringEnvVar);
+
+            if (!string.IsNullOrWhiteSpace(sqlServerConnectionString))
+            {
+                options.UseSqlServer(sqlServerConnectionString);
+                return;
+            }
+
+            options.UseSqlite($"Filename={AppContext.BaseDirectory}\\products.db");
         }
     }
 }

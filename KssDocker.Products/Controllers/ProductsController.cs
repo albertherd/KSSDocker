@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using KssDocker.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KssDocker.Products.Controllers
 {
@@ -12,13 +13,18 @@ namespace KssDocker.Products.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private const string ProductsDb = "productsdb.txt";
+        private readonly ProductsContext _productsContext;
+
+        public ProductsController(ProductsContext productsContext)
+        {
+            _productsContext = productsContext;
+        }
 
         // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> Get()
         {
-            List<Product> products = await GetAllProducts();
+            List<Product> products = await _productsContext.Products.ToListAsync();
             if (products == null)
                 return StatusCode(StatusCodes.Status500InternalServerError);
 
@@ -29,28 +35,11 @@ namespace KssDocker.Products.Controllers
         [HttpGet("{id}", Name = "Get")]
         public async Task<ActionResult<Product>> Get(int id)
         {
-            List<Product> products = await GetAllProducts();
-            if (products == null)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+            Product productById =  await _productsContext.Products.SingleOrDefaultAsync(product => product.Id == id);
+            if (productById == null)
+                return NotFound();
 
-            foreach (Product product in products)
-            {
-                if (product.Id == id)
-                    return product;
-            }
-
-            return NotFound();
-        }
-
-        private async Task<List<Product>> GetAllProducts()
-        {
-            string productsDbFullPath = AppContext.BaseDirectory + ProductsDb;
-            System.IO.FileInfo fi = new System.IO.FileInfo(productsDbFullPath);
-            if (!fi.Exists)
-                return null;
-
-            string productsFileContents = await System.IO.File.ReadAllTextAsync(productsDbFullPath);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(productsFileContents);
+            return productById;
         }
     }
 }
